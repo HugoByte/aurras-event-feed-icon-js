@@ -36,13 +36,13 @@ export async function waitEvent(sig: string[], cb: (e: EventLog[]) => void) {
         cb(events);
       }
       height++;
-      if (height == latest.height) {
+      if (height === latest.height) {
         block = latest;
       } else {
-        const heights = BigNumber.isBigNumber(height)
+        const heightss = BigNumber.isBigNumber(height)
           ? height
           : new BigNumber(height as number);
-        block = await iconService.getBlockByHeight(heights).execute();
+        block = await iconService.getBlockByHeight(heightss).execute();
       }
     }
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -81,14 +81,14 @@ function filterEvent(
   sig: string[],
   address?: string
 ): Array<EventLog> {
-  let stra: Array<EventLog> = [];
+  const filteredEvents: Array<EventLog> = [];
   <Array<EventLog>>eventLogs.filter((eventLog) => {
     for (let i = 0; i < sig.length; i++) {
       if (eventLog.indexed && eventLog.indexed[0].includes(sig[i])) {
         console.log(eventLog.indexed && eventLog.indexed[0].includes(sig[i]));
-        stra.push(eventLog);
+        filteredEvents.push(eventLog);
       }
     }
   });
-  return stra;
+  return filteredEvents;
 }

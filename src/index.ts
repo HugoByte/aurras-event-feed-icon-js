@@ -8,7 +8,7 @@ import { waitEvent } from "./event_fileter";
 dotenv.config();
 export const config: AppConfig = loadConfigFromEnv();
 
-const openwhisk_clinet = openwhisk({
+const OpenwhiskClinet = openwhisk({
   apihost: config.openwhisk_host,
   api_key: config.openwhisk_api_key,
   namespace: config.openwhisk_namespace,
@@ -25,7 +25,7 @@ const eventName = config.event_names.map((item) =>
 
 waitEvent(eventName, (events) => {
   events.forEach((event) => {
-    openwhisk_clinet.actions
+    OpenwhiskClinet.actions
       .invoke({
         name: config.event_reciever,
         params: {

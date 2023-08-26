@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import openwhisk = require("openwhisk");
 dotenv.config();
 
 export interface AppConfig {
@@ -15,52 +16,52 @@ export interface AppConfig {
 }
 
 export function loadConfigFromEnv(): AppConfig {
-  const chain_name = process.env.CHAIN_NAME;
+  const chainName = process.env.CHAIN_NAME;
   const endpoint = process.env.CHAIN_ENDPOINT;
-  const contract_address = process.env.CONTRACT_ADRESS;
-  const kafka_broker = process.env.KAFKA_BROKERS;
-  const openwhisk_api_key = process.env.OPENWHISK_API_KEY;
-  const openwhisk_namespace = process.env.OPENWHISK_NAMESPACE;
-  const openwhisk_host = process.env.OPENWHISK_API_HOST;
-  const event_reciever = process.env.EVENT_RECEIVER;
-  const event_processor = process.env.EVENT_PROCESSOR;
-  const event_name = process.env.EVENT_NAME;
+  const contractAddress = process.env.CONTRACT_ADRESS;
+  const kafkaBroker = process.env.KAFKA_BROKERS;
+  const openwhiskApiKey = process.env.OPENWHISK_API_KEY;
+  const openwhiskNamespace = process.env.OPENWHISK_NAMESPACE;
+  const openwhiskHost = process.env.OPENWHISK_API_HOST;
+  const eventReciever = process.env.EVENT_RECEIVER;
+  const eventProcessor = process.env.EVENT_PROCESSOR;
+  const eventName = process.env.EVENT_NAME;
 
   if (!endpoint) {
     throw new Error("Missing CHAIN_ENDPOINT environment variables.");
   }
-  if (!event_name) {
+  if (!eventName) {
     throw new Error("Missing EVENT_NAME environment variables.");
   }
   if (
-    !openwhisk_api_key ||
-    !openwhisk_namespace ||
-    !openwhisk_host ||
-    !kafka_broker
+    !openwhiskApiKey ||
+    !openwhiskNamespace ||
+    !openwhiskHost ||
+    !kafkaBroker
   ) {
     throw new Error(
       "Missing openwhisk environment variables. (openwhisk_api_key, openwhisk_namespace,openwhisk_host,kafka_broker)"
     );
   }
 
-  if (!event_reciever || !event_processor) {
+  if (!eventProcessor || !eventReciever) {
     throw new Error(
       "Missing action environment variables.(event_reciever,event_processor)"
     );
   }
-  const event_names = event_name.split(";");
-  const kafka_brokers = kafka_broker.split(";");
+  const eventNames = eventName.split(";");
+  const kafkaBrokers = kafkaBroker.split(";");
 
   return {
-    chain_name,
+    chain_name: chainName,
     endpoint,
-    contract_address,
-    kafka_brokers,
-    openwhisk_api_key,
-    openwhisk_namespace,
-    openwhisk_host,
-    event_reciever,
-    event_processor,
-    event_names,
+    contract_address: contractAddress,
+    kafka_brokers: kafkaBrokers,
+    openwhisk_api_key: openwhiskApiKey,
+    openwhisk_namespace:openwhiskNamespace,
+    openwhisk_host: openwhiskHost,
+    event_reciever: eventReciever,
+    event_processor:eventProcessor,
+    event_names:eventNames,
   };
 }
