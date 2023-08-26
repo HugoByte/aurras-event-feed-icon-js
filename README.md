@@ -50,7 +50,18 @@ EVENT_PROCESSOR=icon-event-processor
 Start the feed in development mode.
 
 ```text
-npx ts-node src/icon-feed.ts
+npx ts-node src/index.ts
+```
+or 
+```
+npm run build
+npm start
+```
+
+#### Docker Compose
+
+```text
+docker-compose --project-name icon-aurras up -d
 ```
 ### License
 Licensed under [Apache-2.0](./LICENSE)
