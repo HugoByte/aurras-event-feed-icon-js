@@ -13,6 +13,7 @@ export interface AppConfig {
   event_reciever: string;
   event_processor: string;
   event_names: string[];
+  topic:string;
 }
 
 export function loadConfigFromEnv(): AppConfig {
@@ -26,9 +27,13 @@ export function loadConfigFromEnv(): AppConfig {
   const eventReciever = process.env.EVENT_RECEIVER;
   const eventProcessor = process.env.EVENT_PROCESSOR;
   const eventName = process.env.EVENT_NAME;
+  const topic = process.env.TOPIC;
 
   if (!endpoint) {
     throw new Error("Missing CHAIN_ENDPOINT environment variables.");
+  }
+  if (!topic) {
+    throw new Error("Missing TOPIC environment variables.");
   }
   if (!eventName) {
     throw new Error("Missing EVENT_NAME environment variables.");
@@ -63,5 +68,6 @@ export function loadConfigFromEnv(): AppConfig {
     event_reciever: eventReciever,
     event_processor:eventProcessor,
     event_names:eventNames,
+    topic,
   };
 }

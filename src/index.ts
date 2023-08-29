@@ -31,7 +31,7 @@ waitEvent(eventName, (events) => {
         params: {
           brokers: config.kafka_brokers,
           event: JSON.stringify(event),
-          topic: "d5654951-1909-493b-bf14-849f22f4d462",
+          topic: config.topic,
           eventProcessor: config.event_processor,
         },
       })
