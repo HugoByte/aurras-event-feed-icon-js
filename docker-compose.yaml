@@ -2,7 +2,7 @@ version: '3.8'
 services:
   aurras-event-feed-icon:
     platform: linux/amd64
-    image: hugobyte/icon-event-feed:v0.1
+    image: hugobyte/icon-event-feed:v0.2
     container_name: aurras-event-feed-icon
     restart: always
     networks:
