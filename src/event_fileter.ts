@@ -33,6 +33,9 @@ export async function waitEvent(sig: string[], cb: (e: EventLog[]) => void) {
         config.contract_address
       );
       if (events.length > 0) {
+        for (let i = 0; i < events.length; i++) {
+          events[i].txHash = block.confirmedTransactionList[0].txHash;
+        }
         cb(events);
       }
       height++;
@@ -74,6 +77,7 @@ export class EventLog {
   scoreAddress: string | undefined;
   indexed: string[] | undefined;
   data: string[] | undefined;
+  txHash: string | undefined;
 }
 
 function filterEvent(

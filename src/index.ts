@@ -25,16 +25,17 @@ const eventName = config.event_names.map((item) =>
 
 waitEvent(eventName, (events) => {
   events.forEach((event) => {
-    OpenwhiskClinet.actions
-      .invoke({
-        name: config.event_reciever,
-        params: {
-          brokers: config.kafka_brokers,
-          event: JSON.stringify(event),
-          topic: config.topic,
-          eventProcessor: config.event_processor,
-        },
-      })
-      .then((activation) => console.log(activation));
+    // OpenwhiskClinet.actions
+    //   .invoke({
+    //     name: config.event_reciever,
+    //     params: {
+    //       brokers: config.kafka_brokers,
+    //       event: JSON.stringify(event),
+    //       topic: config.topic,
+    //       eventProcessor: config.event_processor,
+    //     },
+    //   })
+    //   .then((activation) => console.log(activation));
+    console.log(event);
   });
 }).catch((error) => console.log(error));
